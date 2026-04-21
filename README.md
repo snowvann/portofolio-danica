@@ -38,7 +38,7 @@ It highlights my ability to:
 
 ## 🌍 Live Preview
 
-👉 
+👉 https://snowvann.github.io/portofolio-danica/
 
 ---
 
