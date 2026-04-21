@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danica Nasywa P — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0d0f;
+  --bg2: #131316;
+  --bg3: #1a1a1f;
+  --border: rgba(255,255,255,0.07);
+  --salmon: #e8816a;
+  --gold: #c9a84c;
+  --gold2: #f0ca6e;
+  --teal: #4ecdc4;
+  --text: #e8e6e0;
+  --muted: #888580;
+  --white: #ffffff;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Syne',sans-serif; overflow-x:hidden; }
+
+/* CURSOR */
+.cursor { width:10px;height:10px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:transform 0.15s;mix-blend-mode:difference; }
+.cursor-ring { width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:all 0.25s ease;opacity:0.5; }
+
+/* NAV */
+nav { position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 60px;height:70px;background:rgba(13,13,15,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border); }
+.nav-logo { font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold);letter-spacing:0.05em; }
+.nav-links { display:flex;gap:36px; }
+.nav-links a { color:var(--muted);text-decoration:none;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.25s;position:relative; }
+.nav-links a::after { content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width 0.3s; }
+.nav-links a:hover,.nav-links a.active { color:var(--gold); }
+.nav-links a:hover::after,.nav-links a.active::after { width:100%; }
+
+/* HERO */
+#home { min-height:100vh;display:flex;align-items:center;padding:100px 60px 60px;position:relative;overflow:hidden; }
+.hero-bg { position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 50%,rgba(201,168,76,0.07) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(232,129,106,0.05) 0%,transparent 60%); }
+.hero-grid { position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black,transparent); }
+.hero-content { position:relative;z-index:2;max-width:800px; }
+.hero-eyebrow { display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:28px;animation:fadeUp 0.8s ease both; }
+.hero-eyebrow span { width:40px;height:1px;background:var(--gold);display:inline-block; }
+h1.hero-name { font-family:'Cormorant Garamond',serif;font-size:clamp(64px,10vw,130px);font-weight:700;line-height:0.9;letter-spacing:-3px;color:var(--white);margin-bottom:10px;animation:fadeUp 0.8s 0.1s ease both; }
+h1.hero-name em { font-style:italic;color:var(--salmon); }
+.hero-role { font-size:clamp(14px,2vw,17px);color:var(--muted);font-weight:500;letter-spacing:0.05em;margin-bottom:32px;animation:fadeUp 0.8s 0.2s ease both; }
+.hero-role b { color:var(--teal);font-weight:600; }
+.hero-desc { font-size:15px;line-height:1.8;color:#aaa;max-width:520px;margin-bottom:44px;animation:fadeUp 0.8s 0.3s ease both; }
+.hero-btns { display:flex;gap:16px;flex-wrap:wrap;animation:fadeUp 0.8s 0.4s ease both; }
+.btn { display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:4px;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:none;transition:transform 0.2s,box-shadow 0.2s,background 0.2s; }
+.btn:hover { transform:translateY(-3px); }
+.btn-primary { background:var(--gold);color:var(--bg);box-shadow:0 0 30px rgba(201,168,76,0.3); }
+.btn-primary:hover { box-shadow:0 0 50px rgba(201,168,76,0.5); }
+.btn-ghost { background:transparent;color:var(--text);border:1px solid var(--border); }
+.btn-ghost:hover { border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.04); }
+.hero-stats { position:absolute;right:60px;bottom:80px;display:flex;flex-direction:column;gap:24px;animation:fadeUp 0.8s 0.5s ease both; }
+.stat { text-align:right; }
+.stat-num { font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--white);line-height:1; }
+.stat-num span { color:var(--gold); }
+.stat-label { font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted); }
+
+/* SECTION BASE */
+section { padding:120px 60px; }
+.section-tag { font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);font-weight:700;display:flex;align-items:center;gap:14px;margin-bottom:16px; }
+.section-tag::before { content:'';width:30px;height:1px;background:var(--gold); }
+.section-title { font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,72px);font-weight:700;line-height:1;color:var(--white);letter-spacing:-2px;margin-bottom:60px; }
+.section-title em { font-style:italic;color:var(--salmon); }
+
+/* ABOUT */
+#about { background:var(--bg2); }
+.about-grid { display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start; }
+.about-text p { font-size:15px;line-height:1.9;color:#999;margin-bottom:20px; }
+.about-text p b { color:var(--text);font-weight:600; }
+.about-card { background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:28px;margin-top:16px;position:relative;overflow:hidden; }
+.about-card::before { content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--salmon)); }
+.about-card-label { font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:12px; }
+.about-card-text { font-size:14px;line-height:1.7;color:var(--muted); }
+
+/* SKILLS */
+#skills { background:var(--bg); }
+.skills-layout { display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start; }
+.skill-bars { display:flex;flex-direction:column;gap:28px; }
+.skill-header { display:flex;justify-content:space-between;margin-bottom:10px; }
+.skill-name { font-size:13px;font-weight:600;letter-spacing:0.06em;color:var(--text); }
+.skill-pct { font-size:13px;color:var(--gold);font-weight:700; }
+.skill-track { height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden; }
+.skill-fill { height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold),var(--salmon));width:0;transition:width 1.2s cubic-bezier(0.4,0,0.2,1); }
+.tools-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:14px; }
+.tool-card { background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:20px 16px;text-align:center;transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s;cursor:default; }
+.tool-card:hover { border-color:rgba(201,168,76,0.35);transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,0.3); }
+.tool-icon { font-size:26px;margin-bottom:8px;display:block; }
+.tool-name { font-size:12px;font-weight:600;color:var(--muted);letter-spacing:0.05em; }
+
+/* TIMELINE */
+#timeline { background:var(--bg2); }
+.timeline-wrap { position:relative;padding-left:40px; }
+.timeline-wrap::before { content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:var(--border); }
+.timeline-item { position:relative;margin-bottom:52px; }
+.timeline-item::before { content:'';position:absolute;left:-46px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 16px rgba(201,168,76,0.5); }
+.timeline-item:last-child { margin-bottom:0; }
+.tl-date { font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px; }
+.tl-title { font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--white);margin-bottom:4px; }
+.tl-place { font-size:13px;color:var(--teal);font-weight:600;margin-bottom:10px; }
+.tl-desc { font-size:14px;line-height:1.8;color:var(--muted);max-width:560px; }
+.tl-badge { display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-top:10px; }
+.tl-badge.edu { background:rgba(201,168,76,0.12);color:var(--gold);border:1px solid rgba(201,168,76,0.25); }
+.tl-badge.exp { background:rgba(78,205,196,0.1);color:var(--teal);border:1px solid rgba(78,205,196,0.2); }
+.tl-badge.cert { background:rgba(232,129,106,0.1);color:var(--salmon);border:1px solid rgba(232,129,106,0.2); }
+
+/* CERTS */
+#certifications { background:var(--bg); }
+.certs-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px; }
+.cert-card { background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:32px 28px;position:relative;overflow:hidden;transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s; }
+.cert-card:hover { transform:translateY(-6px);border-color:rgba(201,168,76,0.3);box-shadow:0 20px 50px rgba(0,0,0,0.4); }
+.cert-card::after { content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--salmon));transform:scaleX(0);transform-origin:left;transition:transform 0.4s; }
+.cert-card:hover::after { transform:scaleX(1); }
+.cert-icon { font-size:32px;margin-bottom:16px;display:block; }
+.cert-org { font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px; }
+.cert-name { font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--white);margin-bottom:8px;line-height:1.2; }
+.cert-year { font-size:12px;color:var(--gold);font-weight:600; }
+
+/* PROJECTS */
+#project { background:var(--bg2); }
+.projects-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px; }
+.proj-card { background:var(--bg3);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:transform 0.35s,box-shadow 0.35s,border-color 0.35s; }
+.proj-card:hover { transform:translateY(-8px);box-shadow:0 30px 60px rgba(0,0,0,0.5);border-color:rgba(201,168,76,0.2); }
+.proj-visual { height:180px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden; }
+.proj-visual.esem { background:linear-gradient(135deg,#0d3d36,#1a6b5c); }
+.proj-visual.kpi { background:linear-gradient(135deg,#0d1f3d,#1a3a6b); }
+.proj-visual.akred { background:linear-gradient(135deg,#2a0d3d,#4d1a6b); }
+.proj-label-big { font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;letter-spacing:-2px;color:rgba(255,255,255,0.12);user-select:none;position:absolute; }
+.proj-icon-overlay { position:absolute;font-size:36px;filter:drop-shadow(0 4px 16px rgba(0,0,0,0.5)); }
+.proj-body { padding:28px; }
+.proj-tag { font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:10px; }
+.proj-title { font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--white);margin-bottom:12px; }
+.proj-desc { font-size:14px;line-height:1.8;color:var(--muted);margin-bottom:20px; }
+.proj-pills { display:flex;flex-wrap:wrap;gap:8px; }
+.pill { font-size:11px;padding:5px 12px;border-radius:20px;background:rgba(255,255,255,0.05);color:#aaa;border:1px solid var(--border);font-weight:600;letter-spacing:0.04em; }
+
+/* TESTIMONIALS */
+#testimonials { background:var(--bg); }
+.quotes-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px; }
+.quote-card { background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:32px;position:relative;transition:transform 0.3s,border-color 0.3s; }
+.quote-card:hover { transform:translateY(-4px);border-color:rgba(232,129,106,0.3); }
+.quote-mark { font-family:'Cormorant Garamond',serif;font-size:80px;line-height:0.6;color:var(--gold);opacity:0.2;position:absolute;top:24px;left:28px;user-select:none; }
+.quote-text { font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1.7;font-style:italic;color:var(--text);margin-bottom:24px;position:relative;z-index:1;padding-top:16px; }
+.quote-author { display:flex;align-items:center;gap:14px; }
+.author-avatar { width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--salmon));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--bg);flex-shrink:0; }
+.author-name { font-size:14px;font-weight:700;color:var(--white); }
+.author-role { font-size:12px;color:var(--muted); }
+
+/* CONTACT */
+#contact { background:var(--bg2);text-align:center;position:relative;overflow:hidden; }
+#contact::before { content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(201,168,76,0.07) 0%,transparent 60%);pointer-events:none; }
+#contact .section-tag { justify-content:center; }
+#contact .section-title { margin-bottom:16px; }
+.contact-sub { font-size:15px;color:var(--muted);max-width:440px;margin:0 auto 56px;line-height:1.7; }
+.contact-links { display:flex;justify-content:center;gap:16px;flex-wrap:wrap; }
+.contact-btn { display:inline-flex;align-items:center;gap:12px;padding:16px 28px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);text-decoration:none;font-size:14px;font-weight:600;transition:border-color 0.25s,transform 0.2s,background 0.25s,box-shadow 0.25s,color 0.25s; }
+.contact-btn:hover { border-color:rgba(201,168,76,0.4);background:rgba(201,168,76,0.06);transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,0.3);color:var(--gold); }
+
+/* FOOTER */
+footer { background:var(--bg);border-top:1px solid var(--border);text-align:center;padding:28px;font-size:13px;color:var(--muted); }
+footer b { color:var(--gold); }
+
+/* REVEAL */
+.reveal { opacity:0;transform:translateY(32px);transition:opacity 0.75s ease,transform 0.75s ease; }
+.reveal.vis { opacity:1;transform:none; }
+.reveal-d1 { transition-delay:0.1s; }
+.reveal-d2 { transition-delay:0.2s; }
+.reveal-d3 { transition-delay:0.3s; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity:0;transform:translateY(30px); } to { opacity:1;transform:translateY(0); } }
+
+/* RESPONSIVE */
+@media (max-width:900px) {
+  nav { padding:0 20px; }
+  .nav-links { gap:16px; }
+  .nav-links a { font-size:11px; }
+  section { padding:80px 24px; }
+  #home { padding:100px 24px 60px; }
+  .hero-stats { display:none; }
+  .about-grid,.skills-layout { grid-template-columns:1fr;gap:40px; }
+  .tools-grid { grid-template-columns:repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="nav">
+  <div class="nav-logo">DNCNSYWP</div>
+  <div class="nav-links">
+    <a href="#home" class="active">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#timeline">Journey</a>
+    <a href="#certifications">Certs</a>
+    <a href="#project">Projects</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span></span>Portfolio 2025</div>
+    <h1 class="hero-name">Danica<br><em>Nasywa P</em></h1>
+    <br>
+    <p class="hero-role"><b>Frontend Developer</b> · UI/UX Designer · System Analyst · Data Analyst </p>
+    <p class="hero-desc">Business Information Systems student at Politeknik Negeri Malang. Crafting intelligent, user-centric digital experiences — from system design to production code.</p>
+    <div class="hero-btns">
+      <a href="#project" class="btn btn-primary">View Projects →</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">3<span>+</span></div><div class="stat-label">Projects</div></div>
+    <div class="stat"><div class="stat-num">1<span>×</span></div><div class="stat-label">BNSP Certified</div></div>
+    <div class="stat"><div class="stat-num">2<span>yr</span></div><div class="stat-label">Experience</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-tag reveal">About Me</div>
+  <h2 class="section-title reveal">Analytical &amp;<br><em>Design-driven</em></h2>
+  <div class="about-grid">
+    <div class="reveal reveal-d1">
+      <div class="about-text">
+        <p>I am a <b>Business Information Systems</b> student at Politeknik Negeri Malang with a strong passion for System Analysis and UI/UX Design.</p>
+        <p>I have hands-on experience designing system workflows using <b>UML</b> and developing <b>Flutter-based mobile applications</b>, such as the 'ESEM' seminar attendance system.</p>
+        <p>As a <b>BNSP Certified Data Analyst</b>, I am adept at processing data to drive technical decision-making — committed to creating efficient, user-centric technology solutions.</p>
+      </div>
+      <div class="about-card" style="margin-top:28px;">
+        <div class="about-card-label">🎯 Core Focus</div>
+        <div class="about-card-text">System Analysis · UI/UX Design · Mobile Development · Data Analysis</div>
+      </div>
+    </div>
+    <div class="reveal reveal-d2">
+      <div class="about-card">
+        <div class="about-card-label">🎓 Education</div>
+        <div class="about-card-text" style="font-size:16px;color:var(--text);font-weight:600;margin-bottom:4px;">D4 Sistem Informasi Bisnis</div>
+        <div class="about-card-text">Politeknik Negeri Malang · 2022 – 2026</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-label">📍 Location</div>
+        <div class="about-card-text">Malang, East Java, Indonesia</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-label">💼 Open to</div>
+        <div class="about-card-text">Internship · Freelance · Full-time roles in Tech &amp; Design</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-tag reveal">Skills &amp; Tools</div>
+  <h2 class="section-title reveal">What I<br><em>Work With</em></h2>
+  <div class="skills-layout">
+    <div class="skill-bars reveal reveal-d1">
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">UI/UX Design</span><span class="skill-pct">90%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-w="90"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Flutter / Dart</span><span class="skill-pct">80%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-w="80"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">System Analysis (UML)</span><span class="skill-pct">85%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-w="85"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Data Analysis</span><span class="skill-pct">80%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-w="80"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">RESTful API Integration</span><span class="skill-pct">75%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-w="75"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Frontend Development</span><span class="skill-pct">72%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-w="72"></div></div>
+      </div>
+    </div>
+    <div class="tools-grid reveal reveal-d2">
+      <div class="tool-card"><span class="tool-icon">🎨</span><span class="tool-name">Figma</span></div>
+      <div class="tool-card"><span class="tool-icon">📱</span><span class="tool-name">Flutter</span></div>
+      <div class="tool-card"><span class="tool-icon">🗄️</span><span class="tool-name">MySQL</span></div>
+      <div class="tool-card"><span class="tool-icon">📊</span><span class="tool-name">Excel</span></div>
+      <div class="tool-card"><span class="tool-icon">🌐</span><span class="tool-name">HTML/CSS</span></div>
+      <div class="tool-card"><span class="tool-icon">🔷</span><span class="tool-name">UML</span></div>
+      <div class="tool-card"><span class="tool-icon">🐙</span><span class="tool-name">GitHub</span></div>
+      <div class="tool-card"><span class="tool-icon">🔗</span><span class="tool-name">REST API</span></div>
+      <div class="tool-card"><span class="tool-icon">📋</span><span class="tool-name">Trello</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="section-tag reveal">Journey</div>
+  <h2 class="section-title reveal">Education &amp;<br><em>Experience</em></h2>
+  <div class="timeline-wrap">
+    <div class="timeline-item reveal">
+      <div class="tl-date">2022 – Present</div>
+      <div class="tl-title">D4 Sistem Informasi Bisnis</div>
+      <div class="tl-place">Politeknik Negeri Malang</div>
+      <div class="tl-desc">Studying Business Information Systems with focus on system analysis, software development, and data management. Actively involved in campus organizations and real-world projects.</div>
+      <span class="tl-badge edu">Education</span>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="tl-date">2024 – 2025</div>
+      <div class="tl-title">System Analyst — Dashboard KPI</div>
+      <div class="tl-place">UKM BKM Politeknik Negeri Malang</div>
+      <div class="tl-desc">Analyzed requirements and designed a KPI Dashboard system to monitor organizational performance for 2025/2026. Defined key metrics, user needs, and system workflows for data-driven decisions.</div>
+      <span class="tl-badge exp">Project Experience</span>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="tl-date">2024</div>
+      <div class="tl-title">Flutter Developer — ESEM Mobile</div>
+      <div class="tl-place">Politeknik Negeri Malang</div>
+      <div class="tl-desc">Developed a Flutter mobile app for seminar operations. Implemented QR Code scanning for attendance validation and integrated RESTful APIs for real-time data synchronization.</div>
+      <span class="tl-badge exp">Project Experience</span>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="tl-date">2024</div>
+      <div class="tl-title">UI/UX Designer &amp; Frontend Dev — Sistem Akreditasi</div>
+      <div class="tl-place">JTI Politeknik Negeri Malang</div>
+      <div class="tl-desc">Designed and developed a web-based accreditation document management system. Led the superadmin module and integrated frontend with backend for transparent document monitoring.</div>
+      <span class="tl-badge exp">Project Experience</span>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="tl-date">2023</div>
+      <div class="tl-title">BNSP Certified Data Analyst</div>
+      <div class="tl-place">Badan Nasional Sertifikasi Profesi (BNSP)</div>
+      <div class="tl-desc">Achieved national professional certification in Data Analysis, validating skills in data processing, interpretation, and driving technical decision-making from data insights.</div>
+      <span class="tl-badge cert">Certification</span>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-tag reveal">Achievements</div>
+  <h2 class="section-title reveal">Certifications &amp;<br><em>Recognition</em></h2>
+  <div class="certs-grid">
+    <div class="cert-card reveal">
+      <span class="cert-icon">🏆</span>
+      <div class="cert-org">BNSP — Badan Nasional Sertifikasi Profesi</div>
+      <div class="cert-name">Certified Data Analyst</div>
+      <div class="cert-year">2023 · National Professional Certification</div>
+    </div>
+    <div class="cert-card reveal reveal-d1">
+      <span class="cert-icon">📱</span>
+      <div class="cert-org">Politeknik Negeri Malang</div>
+      <div class="cert-name">Flutter Mobile Development</div>
+      <div class="cert-year">2024 · Project Certificate — ESEM App</div>
+    </div>
+    <div class="cert-card reveal reveal-d2">
+      <span class="cert-icon">🎨</span>
+      <div class="cert-org">JTI Politeknik Negeri Malang</div>
+      <div class="cert-name">UI/UX &amp; Frontend Developer</div>
+      <div class="cert-year">2024 · Project Certificate — Sistem Akreditasi</div>
+    </div>
+    <div class="cert-card reveal reveal-d3">
+      <span class="cert-icon">📊</span>
+      <div class="cert-org">UKM BKM Politeknik Negeri Malang</div>
+      <div class="cert-name">System Analyst — KPI Dashboard</div>
+      <div class="cert-year">2025 · Organizational Project Recognition</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="project">
+  <div class="section-tag reveal">Work</div>
+  <h2 class="section-title reveal">Featured<br><em>Projects</em></h2>
+  <div class="projects-grid">
+    <div class="proj-card reveal">
+      <div class="proj-visual esem">
+        <span class="proj-label-big">ESEM</span>
+        <span class="proj-icon-overlay">📱</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">Mobile Development</div>
+        <div class="proj-title">ESEM Mobile</div>
+        <p class="proj-desc">Flutter app for seminar operations with QR Code attendance scanning, event listing, session selection, and real-time API-synced attendance history.</p>
+        <div class="proj-pills">
+          <span class="pill">Flutter</span><span class="pill">Dart</span><span class="pill">REST API</span><span class="pill">QR Code</span>
+        </div>
+      </div>
+    </div>
+    <div class="proj-card reveal reveal-d1">
+      <div class="proj-visual kpi">
+        <span class="proj-label-big">KPI</span>
+        <span class="proj-icon-overlay">📊</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">System Analysis</div>
+        <div class="proj-title">Dashboard KPI</div>
+        <p class="proj-desc">Designed a KPI monitoring dashboard for UKM BKM's organizational performance. Covers achievement rates, KPI status, and departmental insights for data-driven decisions.</p>
+        <div class="proj-pills">
+          <span class="pill">System Analysis</span><span class="pill">UML</span><span class="pill">KPI Design</span>
+        </div>
+      </div>
+    </div>
+    <div class="proj-card reveal reveal-d2">
+      <div class="proj-visual akred">
+        <span class="proj-label-big">AKRED</span>
+        <span class="proj-icon-overlay">🗂️</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">UI/UX &amp; Frontend</div>
+        <div class="proj-title">Sistem Akreditasi</div>
+        <p class="proj-desc">Web-based accreditation system for JTI Politeknik Negeri Malang. Intuitive UI, superadmin module development, and full frontend-backend integration.</p>
+        <div class="proj-pills">
+          <span class="pill">Figma</span><span class="pill">UI/UX</span><span class="pill">Frontend</span><span class="pill">Web App</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-tag reveal">Testimonials</div>
+  <h2 class="section-title reveal">What People<br><em>Say</em></h2>
+  <div class="quotes-grid">
+    <div class="quote-card reveal">
+      <div class="quote-mark">"</div>
+      <p class="quote-text">Danica has an impressive ability to translate complex system requirements into clean, intuitive interfaces. Her attention to both technical and UX details is remarkable for her level.</p>
+      <div class="quote-author">
+        <div class="author-avatar">AB</div>
+        <div>
+          <div class="author-name">Ahmad B.</div>
+          <div class="author-role">Supervisor — UKM BKM Polinema</div>
+        </div>
+      </div>
+    </div>
+    <div class="quote-card reveal reveal-d1">
+      <div class="quote-mark">"</div>
+      <p class="quote-text">Working with Danica on the ESEM app was a great experience. She's proactive, communicates clearly with the backend team, and always delivers clean, well-structured code.</p>
+      <div class="quote-author">
+        <div class="author-avatar">RD</div>
+        <div>
+          <div class="author-name">Rizky D.</div>
+          <div class="author-role">Backend Developer — ESEM Project</div>
+        </div>
+      </div>
+    </div>
+    <div class="quote-card reveal reveal-d2">
+      <div class="quote-mark">"</div>
+      <p class="quote-text">Her data analysis skills are solid and her ability to visualize insights in a way non-technical stakeholders can understand is a real strength. Highly recommended!</p>
+      <div class="quote-author">
+        <div class="author-avatar">SP</div>
+        <div>
+          <div class="author-name">Siti P.</div>
+          <div class="author-role">Lecturer — Politeknik Negeri Malang</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-tag">Let's Connect</div>
+  <h2 class="section-title">Get In<br><em>Touch</em></h2>
+  <p class="contact-sub">Open to internships, collaborations, freelance projects, or just a chat about tech and design. Let's build something great together.</p>
+  <div class="contact-links">
+    <a href="https://github.com/snowvann" target="_blank" class="contact-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12Z"/></svg>
+      github.com/snowvann
+    </a>
+    <a href="mailto:danicanasywap@gmail.com" class="contact-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      danicanasywap@gmail.com
+    </a>
+  </div>
+</section>
+
+<footer>Crafted with ♥ by <b>Danica Nasywa P</b> · 2025</footer>
+
+<script>
+// Cursor
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx-5+'px';cursor.style.top=my-5+'px';});
+setInterval(()=>{rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx-18+'px';ring.style.top=ry-18+'px';},16);
+document.querySelectorAll('a,button,.tool-card,.cert-card,.proj-card,.quote-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.transform='scale(2)';ring.style.opacity='0.8';});
+  el.addEventListener('mouseleave',()=>{ring.style.transform='scale(1)';ring.style.opacity='0.5';});
+});
+
+// Active nav
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id;});
+  navLinks.forEach(a=>{a.classList.remove('active');if(a.getAttribute('href')==='#'+cur)a.classList.add('active');});
+});
+
+// Reveal + skill bars
+const revealEls=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('.skill-fill').forEach(bar=>{bar.style.width=bar.dataset.w+'%';});
+    }
+  });
+},{threshold:0.15});
+revealEls.forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
